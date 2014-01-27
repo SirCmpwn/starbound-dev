@@ -1,12 +1,11 @@
 <h3>
     {% capture packets %}
         {{packets}}
-        <li><a href="#0x{{include.id}}"><strong>0x{{include.id}}</strong>: {{include.name}}</a></li>
+        <li><a href="#{{include.id}}"><strong>{{include.id}}</strong>: {{include.name}}</a></li>
     {% endcapture %}
     <span id="{{include.id}}"></span>
-    <span id="0x{{include.id}}"></span>
     <span id="{{include.name | downcase | replace: ' ', '-' }}"></span>
-    0x{{include.id}}: {{include.name}}
+    {{include.id}}: {{include.name}}
     {% if include.direction %}
         {% if include.direction == "client-to-server" %}
             {% include client-to-server.html %}
