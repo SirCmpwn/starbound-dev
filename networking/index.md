@@ -5,7 +5,7 @@ title: Starbound Networking
 {% capture content %}
 # Starbound Networking
 
-The Starbound networking protocol is based on TCP, and uses port 21025 by default. The current protocol version (Furious Koala) is 635.
+The Starbound networking protocol is based on TCP, and uses port 21025 by default. The current protocol version (Furious Koala) is 636.
 
 ## Resources
 
@@ -439,6 +439,8 @@ This packet has yet to be fully understood.
 </table>
 
 {% include packet-header.html name="World Start" id="12" direction="server-to-client" %}
+
+**Documentation for this packet is outdated.**
 
 This packet is sent to the client when a world thread has been started on the server.
 
