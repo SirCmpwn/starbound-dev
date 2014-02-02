@@ -46,21 +46,42 @@ Example data for the handshake challenge packet:
 {% include connect-packet-header.html name="Handshake Response" id="8" direction="client-to-server" %}
 The handshake response hash is generated using the SHA-256 algorithm, successively working on its own output. The format of the string to be hashed is the UTF-8 encoded string password+salt. 
 
-Pseudo-code follows for an example implementation.
+Pseudo-code follows is directly from starbound's implementation.
 
 ```
-rounds = 5000
-account = "testing"
-challenge = "uAciRZkmwKUkek3krU+s2LTvPHE6v2P"
-hash = "test_password"
+//All inputs are UTF8 strings converted to bytes
+//Client sends account from ClientConnect
+account = UTF8ByteArray("testing")
 
+//Server sends challenge and rounds from HandshakeChallenge
+//Challenge is typically base64 encoded before being returned by the secure random number generator, but it is not base64 decoded by server or client
+rounds = 5000
+challenge = UTF8ByteArray("uAciRZkmwKUkek3krU+s2LTvPHE6v2P")
+
+//Client sends its hash from HandshakeResponse
+hash = UTF8ByteArray("test_password")
+
+//From client side connect process
+//passHash = Star::Auth::bcryptWithRounds(password, account + challenge->passwordSalt, challenge->passwordRounds);
 salt = account+challenge
 
-while (rounds > 0) 
+//From server side Star::Auth::bcryptValidate
+if(rounds <= 99)
+	throw exception("Not Enough Rounds")
+	
+hash = sha256(hash)
+startTime = UnixTimestamp()
+
+while (rounds > 0)
+{
+	if(UnixTimestamp() + 0.5 >= startTime)
+		throw exception("Took too long")
+	
 	hash = sha256(hash+salt)
 	rounds--
+}
 
-return hash
+return Base64Encode(hash)
 ```
 
 {% include connect-packet-header.html name="Connection Response" id="1" direction="server-to-client" %}
