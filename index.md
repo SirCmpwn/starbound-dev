@@ -173,5 +173,13 @@ yet be complete.
             <td>C#</td>
             <td><a target="_blank" href="https://github.com/SirCmpwn/StarNet/blob/master/LICENSE">MIT</a></td>
         </tr>
+		<tr> <!-- Pixxel -->
+            <td><a target="_blank" href="https://github.com/LostGamesStudio/Pixxel">LostGamesStudio/Pixxel</a></td>
+            <td>Starbound server wrapper being developed by AegisGaming and LostGamesStudio</td>
+            <td><span class="label label-success">Furious Koala</span></td>
+            <td><span class="label label-danger">Unstable</span></td>
+            <td>Java</td>
+            <td><a target="_blank" href="https://github.com/LostGamesStudio/Pixxel/blob/master/README.md">None</a></td>
+        </tr>
     </tbody>
 </table>
